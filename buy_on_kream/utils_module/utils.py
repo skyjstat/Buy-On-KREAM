@@ -89,26 +89,6 @@ def price_real(type, price):
     return [price_min, price_max]
 
 
-# def shoes_size(size, cat):
-#     if cat == '신발':
-#         size_pattern = r"(?<!\d)(" + "|".join(str(s) for s in range(220, 335, 5)) + r")(?!\d)"
-#         match = re.search(size_pattern, size)
-#         if match:
-#             res = match.group(0)
-#         else:
-#             size_pattern2 = "|".join(str(s) for s in dict_size.keys())
-#             match2 = re.search(size_pattern2, size)
-#             if match2:
-#                 key = match2.group(0)
-#                 res = dict_size[key]
-#             else:
-#                 res = size
-#     else:
-#         res = size
-
-#     return res
-
-
 def shoes_size(size):
     size_pattern = r"(?<!\d)(" + "|".join(str(s) for s in range(220, 335, 5)) + r")(?!\d)"
     match = re.search(size_pattern, size)
@@ -126,17 +106,7 @@ def shoes_size(size):
     return res
 
 
-# def make_query(style_code, brand_ko, item_ko):
-#     if style_code == '-':
-#         res = item_ko.split(' - ')[0]
-#     else:
-#         res = brand_ko + ' ' + style_code
-    
-#     return res
-
-
 brands_except = ['반스']
-
 def make_query(style_code, brand_ko, item_ko):
     if (style_code == '-') or (brand_ko in brands_except):
         res = item_ko.split(' - ')[0]
