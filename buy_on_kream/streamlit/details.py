@@ -1,6 +1,5 @@
 import streamlit as st
-from utils_streamlit import load_fonts, process_image, format_round_price, format_title, to_json
-
+from utils_streamlit import load_fonts, process_image, format_round_price, format_title
 
 load_fonts()
 
