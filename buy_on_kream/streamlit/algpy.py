@@ -9,15 +9,16 @@ from utils_module.utils import shoes_sizes_near, round_price, nearest_sizes, kre
 pd.set_option('display.max_rows', 10)
 warnings.filterwarnings('ignore')
 
-gender = '여성'
-size = '240'
-feather = 2
+def get_path(relative_path):
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__)) 
+    return os.path.normpath(os.path.join(BASE_DIR, relative_path)) 
+
 
 
 def data_prep(gender, size, featherL, featherR):
-    df_kream = pd.read_csv("../backup/kream_shoes.csv", index_col=0); df_kream = df_kream.astype({'id_kream': str, 'size_new': str}).rename(columns={'url_img':'img_kream'})
-    df_mss = pd.read_csv("../backup/musinsa.csv", index_col=0); df_mss = df_mss.astype({'id_kream': str, 'id_musinsa': str, 'size_new': str})
-    df_ns = pd.read_csv("../backup/ns.csv", index_col=0); df_ns = df_ns.astype({'id_kream': str})
+    df_kream = pd.read_csv(get_path("../backup/kream_shoes.csv"), index_col=0); df_kream = df_kream.astype({'id_kream': str, 'size_new': str}).rename(columns={'url_img':'img_kream'})
+    df_mss = pd.read_csv(get_path("../backup/musinsa.csv"), index_col=0); df_mss = df_mss.astype({'id_kream': str, 'id_musinsa': str, 'size_new': str})
+    df_ns = pd.read_csv(get_path("../backup/ns.csv"), index_col=0); df_ns = df_ns.astype({'id_kream': str})
 
     df_kream_filtered = df_kream.loc[
         (df_kream['gender'] == gender) & (df_kream['size_new'].isin(shoes_sizes_near(size, featherL, featherR)))
@@ -102,6 +103,6 @@ def tag_rows(item, info, size, featherL, featherR):
         (key for key in nearest_sizes(size, featherL, featherR) for d in x if key in d),
     ))
 
-    df.to_csv('../final/df_main.csv')
+    df.to_csv(get_path('../final/df_main.csv'))
 
     return df
