@@ -4,7 +4,8 @@ import re
 import warnings
 import sys
 import os
-sys.path.append(os.path.abspath(".."))
+# sys.path.append(os.path.abspath(".."))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from utils_module.utils import shoes_sizes_near, round_price, nearest_sizes, kream_v_ns
 pd.set_option('display.max_rows', 10)
 warnings.filterwarnings('ignore')
