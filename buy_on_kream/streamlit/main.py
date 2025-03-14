@@ -1,13 +1,10 @@
 import streamlit as st
-import streamlit.components.v1 as components
 from streamlit_image_select import image_select
 from utils_streamlit import load_fonts, process_image, format_round_price, format_title, to_json
 from details import details_kream, details_ns, details_mss
 import pandas as pd
-from selenium import webdriver
 import sys
 import os
-import json
 import algpy
 sys.path.append(os.path.abspath(".."))
 from utils_module.utils import shoes_sizes_near
