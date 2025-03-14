@@ -1,7 +1,7 @@
 import streamlit as st
 st.set_page_config(
-    page_title="크똑소: Buy On KREAM",
-    page_icon="👟"
+    page_title="크똑소 | Buy On KREAM",
+    page_icon="🕶️"
 )
 from utils_streamlit import load_fonts, process_image, format_round_price, format_title
 from details import details_kream, details_ns, details_mss
