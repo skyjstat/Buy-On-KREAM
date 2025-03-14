@@ -4,6 +4,7 @@ import requests
 from io import BytesIO
 import json
 
+
 def process_image(url, background_color=(240, 240, 240), crop=False):
     response = requests.get(url)
     img = Image.open(BytesIO(response.content)).convert("RGBA") 
@@ -21,6 +22,7 @@ def process_image(url, background_color=(240, 240, 240), crop=False):
             img = img.crop((left, top, right, bottom))
 
     return img
+
 
 def load_fonts():
     st.markdown(
@@ -168,11 +170,3 @@ def format_title(text, max_length=30):
     else:
         space_needed = max_length - len(text)
         return text + '' + "&nbsp;" * space_needed  # 짧으면 공백 추가
-
-
-def to_json(val):
-    if isinstance(val, float):
-        return None
-    else:
-        val = val.replace("'", '"')
-        return json.loads(val)
