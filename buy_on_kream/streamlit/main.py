@@ -3,7 +3,6 @@ st.set_page_config(
     page_title="크똑소: Buy On KREAM",
     page_icon="👟"
 )
-from streamlit_image_select import image_select
 from utils_streamlit import load_fonts, process_image, format_round_price, format_title, to_json
 from details import details_kream, details_ns, details_mss
 import pandas as pd
