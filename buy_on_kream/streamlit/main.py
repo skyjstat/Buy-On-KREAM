@@ -144,8 +144,9 @@ st.markdown("---")
 
 # Phase 1-(2)
 st.markdown("""<p class="pretendard-semibold" style="font-size:20px">직구로도 구하기 힘들어요</p>""", unsafe_allow_html=True)
-df_tag3 = df.loc[(df['tag4_nsprice'] != '1')
-                 &(df['tag3_nsstock'] == '1')].reset_index(drop=True)
+# df_tag3 = df.loc[(df['tag4_nsprice'] != '1')
+#                  & (df['tag3_nsstock'] == '1')].reset_index(drop=True)
+df_tag3 = df.loc[(df['tag3_nsstock'] == '1')].reset_index(drop=True)
 contents(df_tag3, "phase12")
 if st.session_state["id_phase12"]:
     st.markdown("---")
@@ -189,8 +190,9 @@ st.markdown("---")
 
 # Phase 2-(2)
 st.markdown("""<p class="pretendard-semibold" style="font-size:20px">크림에만 있는 사이즈가 있어요</p>""", unsafe_allow_html=True)
-df_tag1 = df.loc[(df['tag2_cmcprice'] != '1') 
-                 &(df['tag1_cmcsize'] == '1')].reset_index(drop=True)
+# df_tag1 = df.loc[(df['tag2_cmcprice'] != '1') 
+#                  &(df['tag1_cmcsize'] == '1')].reset_index(drop=True)
+df_tag1 = pd.concat([df.loc[(df['tag2_cmcprice'] != '1') & (df['tag1_cmcsize'] == '1')], df.loc[(df['tag2_cmcprice'] == '1') & (df['tag1_cmcsize'] == '1')]], axis=0).reset_index(drop=True)
 contents(df_tag1, "phase22")
 if st.session_state["id_phase22"]:
     st.markdown("---")
