@@ -18,7 +18,7 @@ kream_pw = os.environ.get("KREAM_PW")
 
 
 def scrape_kream(driver, kream_id, kream_pw):
-    ### LOGIN ###
+    """ LOGIN """
     url_login = 'https://kream.co.kr/login'
     driver.get(url_login)
     time.sleep(1)
@@ -30,7 +30,7 @@ def scrape_kream(driver, kream_id, kream_pw):
     driver.find_element(By.CLASS_NAME, 'login-btn-box').find_element(By.CLASS_NAME, 'btn.full.solid').click()
 
   
-    ### ITEM ###
+    """ ITEM """
     item_df = pd.DataFrame()
 
     for cat in dict_cat.keys():
@@ -67,7 +67,7 @@ def scrape_kream(driver, kream_id, kream_pw):
     item_df['id_kream'] = item_df['url_item'].str.split('/').str[-1]
 
 
-    ### DETAILS ###
+    """ DETAILS """
     item_df_unq = item_df.drop_duplicates('id_kream').reset_index(drop=True)
 
     kream_df = pd.DataFrame()
@@ -141,7 +141,7 @@ def scrape_kream(driver, kream_id, kream_pw):
 
 
 def post_processing(item_df, kream_df):  
-    ### POST-PROCESSING ###
+    """ POST-PROCESSING """
     kream_df_merged = pd.merge(item_df[['category', 'gender', 'id_kream', 'url_img']], kream_df, on='id_kream', how='left').dropna().reset_index(drop=True)
 
     kream_df_merged = kream_df_merged.loc[(kream_df_merged['type'] != '95점') & (kream_df_merged['type'] != '') & (kream_df_merged['price'] != '')].reset_index(drop=True)
