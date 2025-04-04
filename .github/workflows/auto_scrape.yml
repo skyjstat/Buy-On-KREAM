@@ -2,11 +2,11 @@ name: Auto Scrape Every 3 Hours
 
 on:
   schedule:
-    - cron: '0 */3 * * *'  # 매 3시간마다 실행 (UTC 기준)
-  workflow_dispatch:        # 수동 실행도 가능
+    - cron: '0 */3 * * *'  
+  workflow_dispatch:       
 
 permissions:
-  contents: write  # ✅ 자동 커밋 허용
+  contents: write 
 
 jobs:
   scrape-kream:
@@ -30,8 +30,8 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/kream_data.csv
-          git commit -m "Auto: Add kream_data.csv" || echo "Nothing to commit"
+          git add buy_on_kream/data/kream.csv
+          git commit -m "Auto: Add kream.csv" || echo "Nothing to commit"
           git push
 
   scrape-cmc:
@@ -56,8 +56,8 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/cmc_data.csv
-          git commit -m "Auto: Add cmc_data.csv" || echo "Nothing to commit"
+          git add buy_on_kream/data/musinsa.csv
+          git commit -m "Auto: Add musinsa.csv" || echo "Nothing to commit"
           git push
 
   scrape-ss:
@@ -82,6 +82,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/ss_data.csv
-          git commit -m "Auto: Add ss_data.csv" || echo "Nothing to commit"
+          git add buy_on_kream/data/naverss.csv
+          git commit -m "Auto: Add naverss.csv" || echo "Nothing to commit"
           git push
