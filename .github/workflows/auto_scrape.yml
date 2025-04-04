@@ -85,6 +85,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add buy_on_kream/data/naverss.csv
-          git commit -m "Auto: Add naverss.csv" || echo "Nothing to commit"
+          git add buy_on_kream/data/ns.csv
+          git commit -m "Auto: Add ns.csv" || echo "Nothing to commit"
           git push
