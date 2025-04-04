@@ -1,17 +1,17 @@
 name: Test Path Creation
 
 on:
-  workflow_dispatch:  # 수동 실행할 수 있게 설정
+  workflow_dispatch:
 
 permissions:
-  contents: write
-  
+  contents: write  # ✅ 자동 커밋 허용
+
 jobs:
   test-path:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -19,26 +19,19 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Install pandas
         run: pip install pandas
 
-      - name: List files (for debugging)
-        run: ls -R
-        
       - name: Run test.py
         run: python buy_on_kream/test.py
 
-      - name: Upload CSV as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-csv
-          path: data/test_df.csv
+      - name: Show directory structure (디버깅용)
+        run: ls -R
 
       - name: Commit generated CSV
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
           git add data/test_df.csv
-          git commit -m "Auto: Add generated test_df.csv" || echo "No changes to commit"
+          git commit -m "Auto: Add generated test_df.csv" || echo "Nothing to commit"
           git push
