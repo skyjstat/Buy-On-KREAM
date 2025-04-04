@@ -23,7 +23,6 @@ def scrape_kream(driver, kream_id, kream_pw):
     time.sleep(1)
     print("### 로그인 페이지 이동 완료 ###")
 
-    print(driver.find_elements(By.CLASS_NAME, 'input_txt'))
     driver.find_elements(By.CLASS_NAME, 'input_txt')[0].send_keys(kream_id)
     driver.find_elements(By.CLASS_NAME, 'input_txt')[1].send_keys(kream_pw)
     time.sleep(0.3)
@@ -157,12 +156,13 @@ def post_processing(item_df, kream_df):
 
 
 def main():
-    options = Options()
-    options.add_argument('--headless=new')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
+    # options = Options()
+    # options.add_argument('--headless=new')
+    # options.add_argument('--no-sandbox')
+    # options.add_argument('--disable-dev-shm-usage')
 
-    driver = webdriver.Chrome(options=options); print("### 웹드라이버 생성 완료 ###")
+    # driver = webdriver.Chrome(options=options); print("### 웹드라이버 생성 완료 ###")
+    driver = webdriver.Chrome()
     item_df, kream_df = scrape_kream(driver, kream_id, kream_pw)
     driver.quit()
 
