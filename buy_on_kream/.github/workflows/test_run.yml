@@ -1,9 +1,23 @@
-import sys
-import os
-import pandas as pd  # ⬅️ 이거 꼭 필요!
+name: Test Path Creation
 
-def get_path(relative_path):
-    BASE_DIR = os.path.abspath(os.path.dirname(__file__)) 
-    return os.path.normpath(os.path.join(BASE_DIR, relative_path)) 
+on:
+  workflow_dispatch:  # 수동 실행만 (자동 스케줄 아님)
 
-pd.DataFrame().to_csv(get_path("data/test_df.csv"))  # ⬅️ 상대 경로로 수정
+jobs:
+  test-path:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install pandas
+        run: pip install pandas
+
+      - name: Run test.py
+        run: python test.py
