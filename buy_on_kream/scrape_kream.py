@@ -162,7 +162,6 @@ def main():
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
 
-
     driver = webdriver.Chrome(options=options); print("### 웹드라이버 생성 완료 ###")
     # driver = webdriver.Chrome()
     item_df, kream_df = scrape_kream(driver, kream_id, kream_pw)
