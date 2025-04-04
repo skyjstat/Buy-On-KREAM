@@ -156,13 +156,13 @@ def post_processing(item_df, kream_df):
 
 
 def main():
-    # options = Options()
-    # options.add_argument('--headless=new')
+    options = Options()
+    options.add_argument('--headless=new')
     # options.add_argument('--no-sandbox')
     # options.add_argument('--disable-dev-shm-usage')
 
-    # driver = webdriver.Chrome(options=options); print("### 웹드라이버 생성 완료 ###")
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=options); print("### 웹드라이버 생성 완료 ###")
+    # driver = webdriver.Chrome()
     item_df, kream_df = scrape_kream(driver, kream_id, kream_pw)
     driver.quit()
 
