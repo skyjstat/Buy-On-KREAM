@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-SAVE_PATH = os.path.join(BASE_DIR, "../data/test_df.csv")
+SAVE_PATH = os.path.join(BASE_DIR, "data/test_df.csv")
 
 print(BASE_DIR)
 print(SAVE_PATH)
