@@ -1,0 +1,87 @@
+name: Auto Scrape Every 3 Hours
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'  # 매 3시간마다 실행 (UTC 기준)
+  workflow_dispatch:        # 수동 실행도 가능
+
+permissions:
+  contents: write  # ✅ 자동 커밋 허용
+
+jobs:
+  scrape-kream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install pandas
+
+      - name: Run scrape_kream.py
+        run: python buy_on_kream/scrape_kream.py
+
+      - name: Commit CSV from scrape_kream
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/kream_data.csv
+          git commit -m "Auto: Add kream_data.csv" || echo "Nothing to commit"
+          git push
+
+  scrape-cmc:
+    needs: scrape-kream
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install pandas
+
+      - name: Run scrape_cmc.py
+        run: python buy_on_kream/scrape_cmc.py
+
+      - name: Commit CSV from scrape_cmc
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/cmc_data.csv
+          git commit -m "Auto: Add cmc_data.csv" || echo "Nothing to commit"
+          git push
+
+  scrape-ss:
+    needs: scrape-kream
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install pandas
+
+      - name: Run scrape_ss.py
+        run: python buy_on_kream/scrape_ss.py
+
+      - name: Commit CSV from scrape_ss
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ss_data.csv
+          git commit -m "Auto: Add ss_data.csv" || echo "Nothing to commit"
+          git push
