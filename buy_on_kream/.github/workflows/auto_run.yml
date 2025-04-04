@@ -1,16 +1,15 @@
-name: Run Streamlit Script Every 3 Hours
+name: Scrape All Sources Every 3 Hours
 
 on:
   schedule:
-    - cron: '0 */3 * * *'    # 3시간마다 자동 실행 (UTC 기준)
-  workflow_dispatch:         # 수동 실행도 허용
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
 
 jobs:
-  run-python-script:
+  scrape_kream:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -23,6 +22,48 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Streamlit script
+      - name: Run scrape_kream.py
+        env:
+          KREAM_ID: ${{ secrets.KREAM_ID }}
+          KREAM_PW: ${{ secrets.KREAM_PW }}
+        run: python scrape_kream.py
+
+  scrape_cmc:
+    needs: scrape_kream
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
         run: |
-          python streamlit/main.py
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run scrape_cmc.py
+        run: python scrape_cmc.py
+
+  scrape_ss:
+    needs: scrape_kream
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run scrape_ss.py
+        run: python scrape_ss.py
