@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver               
 from selenium.webdriver.common.by import By  
+from selenium.webdriver.chrome.options import Options
 from datetime import datetime 
 import time
 import re
@@ -11,7 +12,6 @@ import warnings
 warnings.filterwarnings('ignore')
 from utils_module.utils import make_query, format_price, shoes_size
 import os
-
 
 kream_id = os.environ.get("KREAM_ID")
 kream_pw = os.environ.get("KREAM_PW")
@@ -156,10 +156,18 @@ def post_processing(item_df, kream_df):
 
 
 def main():
-    driver = webdriver.Chrome()
+    options = Options()
+    options.add_argument('--headless=new')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+
+    driver = webdriver.Chrome(options=options)
     item_df, kream_df = scrape_kream(driver, kream_id, kream_pw)
     driver.quit()
 
     kream_df_merged = post_processing(item_df, kream_df)
-    ### data 폴더에 저장
-    
+    kream_df_merged.to_csv("buy_on_kream/data/kream.csv")
+
+
+if __name__ == "__main__":
+    main()
