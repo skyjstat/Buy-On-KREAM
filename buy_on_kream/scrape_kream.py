@@ -21,6 +21,7 @@ def scrape_kream(driver, kream_id, kream_pw):
     url_login = 'https://kream.co.kr/login'
     driver.get(url_login)
     time.sleep(1)
+    print("### 로그인 페이지 이동 완료 ###")
 
     driver.find_elements(By.CLASS_NAME, 'input_txt')[0].send_keys(kream_id)
     driver.find_elements(By.CLASS_NAME, 'input_txt')[1].send_keys(kream_pw)
@@ -160,7 +161,7 @@ def main():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(options=options); print("### 생성 완료 ###")
     item_df, kream_df = scrape_kream(driver, kream_id, kream_pw)
     driver.quit()
 
