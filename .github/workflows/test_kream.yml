@@ -23,6 +23,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run scrape_kream.py
+        env:
+          KREAM_ID: ${{ secrets.KREAM_ID }}
+          KREAM_PW: ${{ secrets.KREAM_PW }}
         run: python buy_on_kream/scrape_kream.py
         
       - name: Show directory structure
