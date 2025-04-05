@@ -8,10 +8,10 @@ from utils import shoes_sizes_near, round_price, nearest_sizes, kream_v_ns
 pd.set_option('display.max_rows', 10)
 warnings.filterwarnings('ignore')
 
+
 def get_path(relative_path):
     BASE_DIR = os.path.abspath(os.path.dirname(__file__)) 
     return os.path.normpath(os.path.join(BASE_DIR, relative_path)) 
-
 
 
 def data_prep(gender, size, featherL, featherR):
