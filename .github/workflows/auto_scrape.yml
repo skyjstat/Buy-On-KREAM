@@ -1,90 +1,90 @@
-name: Auto Scrape Every 3 Hours
+# name: Auto Scrape Every 3 Hours
 
-on:
-  schedule:
-    - cron: '0 */3 * * *'  
-  workflow_dispatch:       
+# on:
+#   schedule:
+#     - cron: '0 */3 * * *'  
+#   workflow_dispatch:       
 
-permissions:
-  contents: write 
+# permissions:
+#   contents: write 
 
-jobs:
-  scrape-kream:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+# jobs:
+#   scrape-kream:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10'
       
-      - name: Install dependencies
-        run: pip install -r requirements.txt  
+#       - name: Install dependencies
+#         run: pip install -r requirements.txt  
 
-      - name: Run scrape_kream.py
-        env:
-          KREAM_ID: ${{ secrets.KREAM_ID }}
-          KREAM_PW: ${{ secrets.KREAM_PW }}
-        run: python buy_on_kream/scrape_kream.py
+#       - name: Run scrape_kream.py
+#         env:
+#           KREAM_ID: ${{ secrets.KREAM_ID }}
+#           KREAM_PW: ${{ secrets.KREAM_PW }}
+#         run: python buy_on_kream/scrape_kream.py
 
-      - name: Commit CSV from scrape_kream
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add buy_on_kream/data/kream.csv
-          git commit -m "Auto: Add kream.csv" || echo "Nothing to commit"
-          git push
+#       - name: Commit CSV from scrape_kream
+#         run: |
+#           git config --global user.name "github-actions[bot]"
+#           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+#           git add buy_on_kream/data/kream.csv
+#           git commit -m "Auto: Add kream.csv" || echo "Nothing to commit"
+#           git push
 
-  scrape-cmc:
-    needs: scrape-kream
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+#   scrape-cmc:
+#     needs: scrape-kream
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10'
       
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+#       - name: Install dependencies
+#         run: pip install -r requirements.txt
 
-      - name: Run scrape_cmc.py
-        run: python buy_on_kream/scrape_cmc.py
+#       - name: Run scrape_cmc.py
+#         run: python buy_on_kream/scrape_cmc.py
 
-      - name: Commit CSV from scrape_cmc
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add buy_on_kream/data/musinsa.csv
-          git commit -m "Auto: Add musinsa.csv" || echo "Nothing to commit"
-          git push
+#       - name: Commit CSV from scrape_cmc
+#         run: |
+#           git config --global user.name "github-actions[bot]"
+#           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+#           git add buy_on_kream/data/musinsa.csv
+#           git commit -m "Auto: Add musinsa.csv" || echo "Nothing to commit"
+#           git push
 
-  scrape-ss:
-    needs: scrape-kream
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+#   scrape-ss:
+#     needs: scrape-kream
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10'
       
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+#       - name: Install dependencies
+#         run: pip install -r requirements.txt
 
-      - name: Run scrape_ss.py
-        run: python buy_on_kream/scrape_ss.py
+#       - name: Run scrape_ss.py
+#         run: python buy_on_kream/scrape_ss.py
 
-      - name: Commit CSV from scrape_ss
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add buy_on_kream/data/ns.csv
-          git commit -m "Auto: Add ns.csv" || echo "Nothing to commit"
-          git push
+#       - name: Commit CSV from scrape_ss
+#         run: |
+#           git config --global user.name "github-actions[bot]"
+#           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+#           git add buy_on_kream/data/ns.csv
+#           git commit -m "Auto: Add ns.csv" || echo "Nothing to commit"
+#           git push
